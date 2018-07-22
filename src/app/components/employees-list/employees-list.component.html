@@ -1,0 +1,6 @@
+<h3>Employees</h3>
+<ul>
+  <li *ngFor="let employee of employees | async">
+    <p>{{ employee.name }}</p>
+  </li>
+</ul>
