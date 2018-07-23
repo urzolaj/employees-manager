@@ -1,0 +1,7 @@
+<mat-form-field [formGroup]="form">
+  <mat-select placeholder="Job title" [formControl]="form.get('jobTitle')">
+    <mat-option *ngFor="let title of titles" [value]="title.id">
+      {{ title.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
