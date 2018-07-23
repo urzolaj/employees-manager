@@ -1,45 +1,62 @@
 <form [formGroup]="employeeForm" novalidate>
-  <mat-form-field>
-    <input matInput formControlName="name" placeholder="Name">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput formControlName="dateOfBirth" [matDatepicker]="dobPicker" placeholder="Dob">
-    <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-    <mat-datepicker #dobPicker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select placeholder="Country:" formControlName="country">
-      <mat-option *ngFor="let country of countries | async" [value]="country.name">
-        {{ country.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput formControlName="username" placeholder="Username">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput formControlName="hiredDate" [matDatepicker]="hiredPicker" placeholder="Hired date">
-    <mat-datepicker-toggle matSuffix [for]="hiredPicker"></mat-datepicker-toggle>
-    <mat-datepicker #hiredPicker></mat-datepicker>
-  </mat-form-field>
-  <mat-slide-toggle color="primary" formControlName="status">
-    Status
-  </mat-slide-toggle>
-  <mat-radio-group formControlName="area">
-    <mat-radio-button value="services">Services</mat-radio-button>
-    <mat-radio-button value="kitchen">Kitchen</mat-radio-button>
-  </mat-radio-group>
-  <app-employee-titles-dropdown
-    [form]="employeeForm"
-    [area]="areaValue">
-  </app-employee-titles-dropdown>
-  <mat-form-field *ngIf="areaValue === 'services' && (jobTitleValue === 3 || jobTitleValue === 4)">
-    <input matInput formControlName="tipRate" placeholder="Tip rate" type="number" step="0.01">
-  </mat-form-field>
+  <div clas="form-section">
+    <mat-form-field>
+      <input matInput formControlName="name" placeholder="Name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [max]="validAdultDob" formControlName="dateOfBirth" [matDatepicker]="dobPicker" placeholder="Dob">
+      <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+      <mat-datepicker #dobPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Country:" formControlName="country">
+        <mat-option *ngFor="let country of countries | async" [value]="country.name">
+          {{ country.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="username" placeholder="Username">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [max]="today" formControlName="hiredDate" [matDatepicker]="hiredPicker" placeholder="Hired date">
+      <mat-datepicker-toggle matSuffix [for]="hiredPicker"></mat-datepicker-toggle>
+      <mat-datepicker #hiredPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-slide-toggle color="primary" formControlName="status">
+      Status
+    </mat-slide-toggle>
+  </div>
+
+  <div class="form-section">
+    <mat-radio-group formControlName="area">
+      <mat-radio-button value="services">Services</mat-radio-button>
+      <mat-radio-button value="kitchen">Kitchen</mat-radio-button>
+    </mat-radio-group>
+
+    <app-employee-titles-dropdown
+      [form]="employeeForm"
+      [area]="areaValue">
+    </app-employee-titles-dropdown>
+
+    <mat-form-field *ngIf="areaValue === 'services' && (jobTitleValue === 3 || jobTitleValue === 4)">
+      <input matInput formControlName="tipRate" placeholder="Tip rate" type="number" step="0.01" min="0">
+    </mat-form-field>
+  </div>
+  <button mat-button (click)="back()">Back</button>
   <button
+    class="action-button"
     mat-raised-button
     color="accent"
-    (click)="addEmployee()"
+    (click)="callEmployeeAction()"
     [disabled]="employeeForm.invalid"
-  >Add Employee</button>
+    *ngIf="action !== 'view'"
+  >
+    {{action}} Employee
+  </button>
 </form>

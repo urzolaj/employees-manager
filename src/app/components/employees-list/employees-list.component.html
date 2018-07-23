@@ -1,7 +1,6 @@
-<h3>Employees</h3>
-
-<div class="table-container mat-elevation-z8">
-  <div class="table-header">
+<div class="main-table-container">
+  <h3>Employees</h3>
+  <div class="example-header">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
@@ -29,14 +28,25 @@
       <mat-cell *matCellDef="let element"> {{formatDate(element.hiredDate)}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="options">
-      <!-- <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell> -->
-      <mat-cell *matCellDef="let element">
-        <a href="">Options</a>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index;">
+        <button mat-mini-fab class="action-button" (click)="editEmployee(i)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-mini-fab class="action-button" (click)="viewEmployee(i)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-mini-fab class="action-button" (click)="deleteEmployee(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns; let i = index;"></mat-row>
   </mat-table>
+  <button mat-raised-button color="primary" (click)="newEmployee()">
+    <mat-icon>add</mat-icon> Add new Employee
+  </button>
 </div>

@@ -4,6 +4,7 @@ import { Employee } from '../models/employee.model';
 
 export const ADD_EMPLOYEE = '[EMPLOYEE] Add';
 export const REMOVE_EMPLOYEE = '[EMPLOYEE] Remove';
+export const UPDATE_EMPLOYEE = '[EMPLOYEE] Update';
 
 export class AddEmployee implements Action {
   readonly type = ADD_EMPLOYEE;
@@ -12,7 +13,12 @@ export class AddEmployee implements Action {
 
 export class RemoveEmployee implements Action {
   readonly type = REMOVE_EMPLOYEE;
-  constructor(public payload: number) {}
+  constructor(public payload: Employee) {}
 }
 
-export type Actions = AddEmployee | RemoveEmployee;
+export class UpdateEmployee implements Action {
+  readonly type = UPDATE_EMPLOYEE;
+  constructor(public payload: any) {}
+}
+
+export type Actions = AddEmployee | RemoveEmployee | UpdateEmployee;

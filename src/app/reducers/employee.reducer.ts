@@ -9,8 +9,8 @@ const initialState: Employee = {
   username: 'alejohann',
   hiredDate: new Date('July 5, 2012'),
   status: true,
-  area: 'BQ',
-  jobTitle: 'Engineer',
+  area: 'kitchen',
+  jobTitle: 'Chef',
   tipRate: 0.9
 }
 
@@ -18,6 +18,12 @@ export function employeeReducer(state: Employee[] = [initialState], action: Empl
   switch (action.type) {
     case EmployeeActions.ADD_EMPLOYEE:
       return [...state, action.payload];
+    case EmployeeActions.REMOVE_EMPLOYEE:
+      state.splice(state.indexOf(action.payload), 1);
+      return state;
+    case EmployeeActions.UPDATE_EMPLOYEE:
+      state[action.payload.index] = Object.assign({}, action.payload.newValue);
+      return state;
     default:
       return state;
   }

@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -10,14 +9,14 @@ import {
   MatTableModule,
   MatInputModule,
   MatIconModule,
-  MatButtonModule,
-  MatSelectModule,
-  MatCheckboxModule
+  MatButtonModule
 } from '@angular/material';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { employeeReducer } from './reducers/employee.reducer';
 import { EmployeesListComponent } from './components/employees-list/employees-list.component';
+import { EmployeeFormModule } from './components/employee-form/employee-form.module';
 
 @NgModule({
   declarations: [
@@ -26,30 +25,22 @@ import { EmployeesListComponent } from './components/employees-list/employees-li
   ],
   imports: [
     BrowserModule,
+    RouterModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     StoreModule.forRoot({
       employee: employeeReducer
     }),
+    EmployeeFormModule,
     MatFormFieldModule,
     MatTableModule,
-    MatInputModule,
     MatIconModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    FormsModule,
-    ReactiveFormsModule
+    MatInputModule,
+    MatButtonModule
   ],
-  providers: [FormBuilder],
+  providers: [],
   bootstrap: [AppComponent],
-  exports: [
-    MatFormFieldModule,
-    MatTableModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatCheckboxModule
-  ]
+  exports: []
 })
 export class AppModule { }
